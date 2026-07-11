@@ -1,172 +1,298 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
-    <base target="_top">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حجز مواعيد إدارة الدمج بدمياط</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>حجز موعد تقديم أوراق - إدارة الدمج</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; text-align: right; }
-        .no-print-zone { max-width: 850px; margin: 20px auto; }
-        .main-card { border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: none; overflow: hidden; }
-        .official-header { background: #fff; padding: 15px; text-align: center; color: #333; border-bottom: 3px solid #1e5799; }
-        .card-header-custom { background: #1e5799; color: white; padding: 15px; text-align: center; }
-        #ticket-wrapper { display: none; padding: 20px; }
-        .ticket-container { border: 2px solid #1e5799; padding: 20px; background: white; border-radius: 10px; max-width: 700px; margin: auto; }
-        .data-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-        .data-table th, .data-table td { border: 1px solid #ddd; padding: 10px; text-align: right; }
-        .data-table th { background-color: #f8f9fa; width: 30%; }
-        @media print { .no-print-zone { display: none; } #ticket-wrapper { display: block; } .ticket-container { border: 2px solid #000; } }
+        body { font-family: 'Cairo', sans-serif; background-color: #f4f7f6; color: #333; }
+        .booking-container { max-width: 800px; margin: 30px auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .header-box { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .main-title { text-align: center; font-weight: bold; color: #007bff; margin: 20px 0; font-size: 24px; }
+        .form-label { font-weight: 600; }
+        .btn-submit { width: 100%; padding: 12px; font-size: 18px; font-weight: bold; }
+        
+        /* تنسيق التذكرة */
+        #ticketPrint { display: none; width: 210mm; min-height: 297mm; padding: 20px; margin: auto; background: white; border: 2px solid #333; position: relative; }
+        .ticket-header { display: flex; justify-content: space-between; }
+        .ticket-title-box { text-align: center; border-top: 2px solid #000; border-bottom: 2px solid #000; padding: 10px; margin: 20px 0; }
+        .ticket-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+        .info-item { border: 1px solid #ccc; padding: 8px; border-radius: 5px; }
+        .ticket-id-box { border: 3px solid #000; padding: 10px; font-weight: bold; font-size: 20px; display: inline-block; margin: 10px 0; }
+        .docs-list { background: #f9f9f9; padding: 15px; border-radius: 10px; font-size: 14px; }
+        .footer-note { font-weight: bold; text-align: center; margin-top: 20px; border-top: 1px dashed #000; padding-top: 10px; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #ticketPrint, #ticketPrint * { visibility: visible; }
+            #ticketPrint { position: absolute; left: 0; top: 0; display: block !important; }
+            .no-print { display: none !important; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container no-print-zone" id="form-container">
-    <div class="card main-card">
-        <!-- الترويسة الرسمية المطلوبة -->
-        <div class="official-header">
-            <h5 class="mb-1">محافظة دمياط</h5>
-            <h5 class="mb-1">مديرية التربية والتعليم</h5>
-            <h5 class="mb-0">إدارة الدمج الشامل</h5>
-        </div>
-        
-        <div class="card-header-custom">
-            <h4 class="mb-0">حجز موعد تقديم أوراق لإدارة الدمج الشامل</h4>
+<div class="container no-print">
+    <div class="booking-container">
+        <div class="header-box">
+            <div style="text-align: right; line-height: 1.2;">
+                محافظة دمياط<br>مديرية التربية والتعليم<br>إدارة الدمج الشامل
+            </div>
+            <div style="text-align: left;">
+                <img src="https://upload.wikimedia.org/wikipedia/ar/7/7b/Damietta_Governorate_Logo.png" width="60" alt="Logo">
+            </div>
         </div>
 
-        <div class="card-body p-4">
-            <form id="booking-form">
-                <div class="row g-3">
-                    <div class="col-md-6"><label class="form-label fw-bold">اسم الطالب رباعي</label><input type="text" id="studentName" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">الرقم القومي للطالب</label><input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14"></div>
-                    <div class="col-md-4"><label class="form-label fw-bold">الإدارة التعليمية</label><input type="text" id="eduAdmin" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label fw-bold">المرحلة</label>
-                        <select id="eduStage" class="form-select" required>
-                            <option value="">اختر...</option><option>رياض أطفال</option><option>ابتدائي</option><option>اعدادي</option><option>ثانوي</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4"><label class="form-label fw-bold">الصف</label><input type="text" id="eduClass" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">المدرسة</label><input type="text" id="schoolName" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">نوع الإجراء</label>
-                        <select id="procedureType" class="form-select" required>
-                            <option value="">اختر...</option>
-                            <option>دمج لأول مرة</option><option>تجديد دمج</option><option>إلغاء دمج</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4"><label class="form-label fw-bold">نوع الإعاقة</label><input type="text" id="disabilityType" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label fw-bold">درجة الذكاء</label><input type="number" id="iqScore" class="form-control" required></div>
-                    <div class="col-md-4"><label class="form-label fw-bold">رقم التليفون</label><input type="tel" id="phoneNumber" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">تاريخ الحجز (6 إلى 11)</label>
-                        <input type="date" id="bookingDate" class="form-control" required>
-                    </div>
-                    <div class="col-md-6"><label class="form-label fw-bold">الفترة الزمنية</label>
-                        <select id="timeSlot" class="form-select" required>
-                            <option value="">اختر...</option>
-                            <option>09:00 ص - 10:00 ص</option><option>10:00 ص - 11:00 ص</option><option>11:00 ص - 12:00 م</option><option>12:00 م - 01:00 م</option><option>01:00 م - 02:00 م</option>
-                        </select>
-                    </div>
+        <h2 class="main-title">حجز موعد تقديم أوراق</h2>
+
+        <form id="bookingForm">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">اسم الطالب رباعي</label>
+                    <input type="text" name="studentName" class="form-control" required>
                 </div>
-                <button type="submit" id="submit-btn" class="btn btn-primary w-100 mt-4 py-2 fw-bold">تأكيد الحجز وإصدار التذكرة</button>
-            </form>
-        </div>
+                <div class="col-md-6">
+                    <label class="form-label">الرقم القومي (14 رقم)</label>
+                    <input type="text" name="nationalId" class="form-control" pattern="\d{14}" maxlength="14" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">الإدارة التعليمية</label>
+                    <input type="text" name="district" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">المرحلة التعليمية</label>
+                    <select name="level" class="form-select" required>
+                        <option value="">اختر المرحلة...</option>
+                        <option>رياض أطفال</option>
+                        <option>ابتدائي</option>
+                        <option>اعدادي</option>
+                        <option>ثانوي عام</option>
+                        <option>ثانوي فني</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">الصف الدراسي</label>
+                    <input type="text" name="grade" class="form-control" required>
+                </div>
+                <div class="col-md-8">
+                    <label class="form-label">اسم المدرسة</label>
+                    <input type="text" name="school" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">نوع الإجراء المطلوب</label>
+                    <select name="actionType" class="form-select" required>
+                        <option value="">اختر...</option>
+                        <option>دمج لأول مرة</option>
+                        <option>تجديد دمج</option>
+                        <option>الغاء دمج</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">نوع الإعاقة</label>
+                    <input type="text" name="disabilityType" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">درجة مقياس الذكاء</label>
+                    <input type="number" name="iqScore" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">رقم تليفون ولي الأمر</label>
+                    <input type="tel" name="phone" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">تاريخ الحجز</label>
+                    <input type="date" name="bookingDate" id="bookingDate" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">الفترة الزمنية</label>
+                    <select name="timeSlot" class="form-select" required>
+                        <option value="">اختر فترة...</option>
+                        <option>من 09:00 ص إلى 10:00 ص</option>
+                        <option>من 10:00 ص إلى 11:00 ص</option>
+                        <option>من 11:00 ص إلى 12:00 م</option>
+                        <option>من 12:00 م إلى 01:00 م</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-submit mt-4" id="submitBtn">تأكيد الحجز وتوليد التذكرة</button>
+        </form>
     </div>
 </div>
 
-<!-- واجهة التذكرة -->
-<div id="ticket-wrapper">
-    <div class="no-print-zone text-center mb-4">
-        <button class="btn btn-success btn-lg me-2" onclick="window.print()">طباعة التذكرة</button>
-        <button class="btn btn-secondary btn-lg" onclick="location.reload()">حجز جديد</button>
+<!-- نموذج التذكرة القابلة للطباعة -->
+<div id="ticketPrint">
+    <div class="ticket-header">
+        <div style="text-align: right; line-height: 1.2;">
+            محافظة دمياط<br>مديرية التربية والتعليم<br>إدارة الدمج الشامل
+        </div>
+        <div style="text-align: left;">
+            <img src="https://upload.wikimedia.org/wikipedia/ar/7/7b/Damietta_Governorate_Logo.png" width="60">
+        </div>
     </div>
-    <div class="ticket-container">
-        <div class="text-center mb-3">
-            <h6>محافظة دمياط - مديرية التربية والتعليم</h6>
-            <h6>إدارة الدمج الشامل</h6>
-            <hr>
-            <h4>تذكرة مراجعة ملف دمج</h4>
+
+    <div class="ticket-title-box">
+        <h3>حجز موعد تقديم أوراق إلى إدارة الدمج الشامل</h3>
+    </div>
+
+    <div style="text-align: center;">
+        <div class="ticket-id-box" id="disp-ticketID"></div>
+        <div style="margin: 10px 0;">
+            <strong>تاريخ الزيارة:</strong> <span id="disp-date" class="info-item"></span>
+            <strong>الفترة:</strong> <span id="disp-slot" class="info-item"></span>
         </div>
-        <div class="row text-center my-3">
-            <div class="col-4 border-end"><b>رقم التذكرة</b><br><span id="t-num"></span></div>
-            <div class="col-4 border-end"><b>التاريخ</b><br><span id="t-date"></span></div>
-            <div class="col-4"><b>الفترة</b><br><span id="t-slot"></span></div>
-        </div>
-        <table class="data-table">
-            <tr><th>الاسم</th><td id="t-name"></td></tr>
-            <tr><th>الرقم القومي</th><td id="t-id"></td></tr>
-            <tr><th>الإجراء</th><td id="t-proc"></td></tr>
-            <tr><th>المدرسة</th><td id="t-school"></td></tr>
-        </table>
-        <p class="mt-4 text-center small fw-bold">يرجى الحضور في الموعد المحدد مع كافة الأوراق الرسمية.</p>
+    </div>
+
+    <div class="ticket-info-grid">
+        <div class="info-item"><strong>اسم الطالب:</strong> <span id="disp-name"></span></div>
+        <div class="info-item"><strong>الرقم القومي:</strong> <span id="disp-nationalId"></span></div>
+        <div class="info-item"><strong>الإدارة:</strong> <span id="disp-district"></span></div>
+        <div class="info-item"><strong>المرحلة/الصف:</strong> <span id="disp-level"></span> / <span id="disp-grade"></span></div>
+        <div class="info-item"><strong>المدرسة:</strong> <span id="disp-school"></span></div>
+        <div class="info-item"><strong>الإجراء:</strong> <span id="disp-action"></span></div>
+        <div class="info-item"><strong>نوع الإعاقة:</strong> <span id="disp-disability"></span></div>
+        <div class="info-item"><strong>مقياس الذكاء:</strong> <span id="disp-iq"></span></div>
+    </div>
+
+    <div class="docs-list">
+        <strong>المستندات المطلوبة:</strong><br>
+        ١ـ عدد افادتين قيد للطالب.<br>
+        ٢ـ صورة شخصية للطالب.<br>
+        ٣ـ اصل شهادة ميلاد كمبيوتر للطالب.<br>
+        ٤ـ أصل مقياس الذكاء للطالب.<br>
+        ٥ـ أصل التقرير الطبي للطالب.<br>
+        ٦ـ تقرير احالة الأخصائي الاجتماعي.<br>
+        ٧ـ أصل المقياس السمعي إن وجد.<br>
+        ٨ـ أصل المقياس البصري إن وجد.<br>
+        ٩ـ صورة بطاقة ولي الأمر (الأب) سارية.
+    </div>
+
+    <div style="font-size: 13px; margin-top: 15px;">
+        <strong>ملحوظات هامة جداً:</strong><br>
+        * جميع الأوراق يجب أن تكون معتمدة ومختومة من الجهات المختصة.<br>
+        * ضرورة تواجد الطالب، وولي الأمر (الأب) عند تقديم الأوراق أو توكيل رسمي.<br>
+        * الولاية التعليمية للأم وصورة منها في حالة الانفصال الرسمي.
+    </div>
+
+    <div class="footer-note">
+        "يرجى الحضور قبل الموعد المحدد بـ 15 دقيقة، ولن يسمح باستكمال الأوراق بدون تذكرة الحجز"<br>
+        "هذه التذكرة صالحة لموعد واحد فقط، ويجب إبرازها عند تقديم الأوراق"
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // هام: استبدل هذا الرابط برابط النشر الجديد (Web App URL)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx6L7j1TMXuSJU_XADuGddLNQJxifInSubna1D4C6NDgv5qdpQ2wjVhUPUTn5XSZCWO/exec'; 
+    // استبدل هذا الرابط برابط الـ Web App الخاص بك من جوجل سكريبت
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx1sIM6aAfWTvu9lPQocHYGkSYwkAS5MYEoh3Pvu9JtSJ7RZ78we3Op12O2R7wu49q_Vg/exec';
 
-    const dateInput = document.getElementById('bookingDate');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today; // لا يسمح بتاريخ قديم
-
-    // منع اختيار الجمعة والسبت
-    dateInput.addEventListener('input', function() {
-        const day = new Date(this.value).getDay();
-        if(day === 5 || day === 6) {
-            alert('أيام الجمعة والسبت عطلة رسمية. اختر يوماً آخر.');
-            this.value = '';
-        }
-    });
-
-    document.getElementById('booking-form').addEventListener('submit', function(e) {
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const btn = document.getElementById('submit-btn');
-        btn.disabled = true; btn.innerText = "جاري الحجز...";
-        
-        const payload = {
-            studentName: document.getElementById('studentName').value,
-            nationalId: document.getElementById('nationalId').value,
-            eduAdmin: document.getElementById('eduAdmin').value,
-            eduStage: document.getElementById('eduStage').value,
-            eduClass: document.getElementById('eduClass').value,
-            schoolName: document.getElementById('schoolName').value,
-            procedureType: document.getElementById('procedureType').value,
-            disabilityType: document.getElementById('disabilityType').value,
-            iqScore: document.getElementById('iqScore').value,
-            phoneNumber: document.getElementById('phoneNumber').value,
-            bookingDate: document.getElementById('bookingDate').value,
-            timeSlot: document.getElementById('timeSlot').value
-        };
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = "جاري الحجز...";
 
-        fetch(WEB_APP_URL, { 
-            method: 'POST', 
-            mode: 'cors', // تفعيل نمط CORS
-            body: JSON.stringify(payload) 
-        })
-        .then(r => r.json())
-        .then(res => {
-            if(res.status === 'success') {
-                document.getElementById('t-num').innerText = res.ticketNumber;
-                document.getElementById('t-date').innerText = payload.bookingDate;
-                document.getElementById('t-slot').innerText = payload.timeSlot;
-                document.getElementById('t-name').innerText = payload.studentName;
-                document.getElementById('t-id').innerText = payload.nationalId;
-                document.getElementById('t-proc').innerText = payload.procedureType;
-                document.getElementById('t-school').innerText = payload.schoolName;
-                
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('ticket-wrapper').style.display = 'block';
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', // للأسف لا يمكن قراءة الرد مع no-cors، سنستخدم حل بديل
+            body: JSON.stringify(data)
+        });
+
+        // بما أن Google Apps Script يواجه مشاكل CORS مع POST المباشر، 
+        // سنقوم باستخدام google.script.run إذا كان الكود داخل Google، 
+        // ولكن للعمل على GitHub سنستخدم JSONP أو إرسال البيانات عبر GET بطريقة مبسطة.
+        // لضمان عملها 100% من GitHub سنستخدم تقنية الرسائل:
+
+        // ملاحظة: لإرسال البيانات من GitHub إلى Google تحتاج لاستخدام fetch مع الرابط بشكل صحيح
+        // سنستخدم هنا طلب GET لتجنب تعقيدات CORS في هذا المثال البسيط
+        const params = new URLSearchParams(data).toString();
+        
+        // استخدام Fetch API لإرسال البيانات
+        fetch(`${scriptURL}?${params}`)
+        .then(response => response.json())
+        .then(result => {
+            if(result.status === "success") {
+                showTicket(data, result.ticketID);
             } else {
-                alert(res.message);
-                btn.disabled = false; btn.innerText = "تأكيد الحجز";
+                Swal.fire('خطأ', result.msg, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerText = "تأكيد الحجز وتوليد التذكرة";
             }
         })
-        .catch(err => {
-            alert("خطأ في الاتصال: تأكد من نشر الرابط بصلاحية (Anyone)");
-            btn.disabled = false; btn.innerText = "تأكيد الحجز";
+        .catch(error => {
+            // في حالة الـ CORS سيعتبره خطأ حتى لو نجح، سنفحص جوجل شيت يدوياً
+            // ولكن الأفضل استخدام Web App مبرمج لاستقبال JSON
+            console.error(error);
         });
     });
+
+    // دالة بديلة للإرسال تعمل مع GitHub Pages بشكل أفضل (عن طريق تحويل POST إلى طلب Apps Script)
+    document.getElementById('bookingForm').onsubmit = function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+        
+        // التحقق من التاريخ برمجياً قبل الإرسال
+        const d = new Date(data.bookingDate);
+        if(d.getDay() === 5 || d.getDay() === 6) {
+            Swal.fire('خطأ', 'لا يمكن الحجز يومي الجمعة والسبت', 'error');
+            btn.disabled = false;
+            return;
+        }
+
+        // إرسال البيانات عبر JSONP أو محاكاة ذلك
+        const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+        window[callbackName] = function(dataResponse) {
+            delete window[callbackName];
+            document.body.removeChild(script);
+            if(dataResponse.status === "success") {
+                showTicket(data, dataResponse.ticketID);
+            } else {
+                Swal.fire('تنبيه', dataResponse.msg, 'warning');
+                btn.disabled = false;
+            }
+        };
+
+        const script = document.createElement('script');
+        script.src = `${scriptURL}?callback=${callbackName}&${new URLSearchParams(data).toString()}`;
+        document.body.appendChild(script);
+    };
+
+    function showTicket(data, ticketID) {
+        document.getElementById('disp-name').innerText = data.studentName;
+        document.getElementById('disp-nationalId').innerText = data.nationalId;
+        document.getElementById('disp-district').innerText = data.district;
+        document.getElementById('disp-level').innerText = data.level;
+        document.getElementById('disp-grade').innerText = data.grade;
+        document.getElementById('disp-school').innerText = data.school;
+        document.getElementById('disp-action').innerText = data.actionType;
+        document.getElementById('disp-disability').innerText = data.disabilityType;
+        document.getElementById('disp-iq').innerText = data.iqScore;
+        document.getElementById('disp-date').innerText = data.bookingDate;
+        document.getElementById('disp-slot').innerText = data.timeSlot;
+        document.getElementById('disp-ticketID').innerText = ticketID;
+
+        Swal.fire({
+            title: 'تم الحجز بنجاح!',
+            text: 'رقم تذكرتك هو: ' + ticketID,
+            icon: 'success',
+            confirmButtonText: 'طباعة التذكرة'
+        }).then(() => {
+            window.print();
+            location.reload();
+        });
+    }
+
+    // تحديد أقل تاريخ متاح (اليوم)
+    const dateInput = document.getElementById('bookingDate');
+    const now = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', now);
 </script>
+
 </body>
 </html>
