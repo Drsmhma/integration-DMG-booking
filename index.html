@@ -21,16 +21,11 @@
             margin-bottom: 10px;
             color: #1e5799;
             font-weight: 700;
-            line-height: 1.4;
         }
-        .official-header .line-1 { font-size: 18px; }
-        .official-header .line-2 { font-size: 16px; }
-        .official-header .line-3 { font-size: 16px; color: #444; }
-        
         .main-card {
             border: none;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             background: #ffffff;
         }
         .card-header-custom {
@@ -46,129 +41,58 @@
             border: none;
             color: white;
             font-weight: 600;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
         }
-        
-        #ticket-wrapper {
-            display: none;
-            background: #fff;
-            padding: 10px;
-        }
+        #ticket-wrapper { display: none; background: #fff; padding: 10px; }
         .ticket-container {
             width: 190mm;
-            max-height: 275mm;
             margin: 0 auto;
-            padding: 8mm 10mm;
+            padding: 10mm;
             background: #ffffff;
             border: 3px double #1e5799;
-            box-sizing: border-box;
             position: relative;
-            overflow: hidden;
-        }
-        .ticket-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        .header-right-text {
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1.4;
         }
         .ticket-main-title {
             text-align: center;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 700;
-            margin: 8px 0;
-            padding: 5px 0;
+            margin: 10px 0;
+            padding: 5px;
             border-top: 2px solid #333;
             border-bottom: 2px solid #333;
         }
         .ticket-meta-box {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             gap: 10px;
         }
         .meta-item {
             flex: 1;
             border: 1.5px solid #1e5799;
             border-radius: 4px;
-            padding: 5px;
+            padding: 8px;
             text-align: center;
             background-color: #f9fbfd;
         }
-        .meta-item-title {
-            font-size: 11px;
-            color: #555;
-            font-weight: 600;
-        }
-        .meta-item-value {
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #1e5799;
-        }
-        .data-table {
-            width: 100%;
-            margin-bottom: 10px;
-            border-collapse: collapse;
-        }
-        .data-table th, .data-table td {
-            border: 1px solid #ccc;
-            padding: 5px 8px;
-            font-size: 12px;
-        }
-        .data-table th {
-            background-color: #f7f7f7;
-            width: 28%;
-            font-weight: 700;
-        }
+        .meta-item-value { font-size: 14px; font-weight: 700; color: #1e5799; }
+        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        .data-table th, .data-table td { border: 1px solid #ccc; padding: 8px; font-size: 13px; }
+        .data-table th { background-color: #f7f7f7; width: 30%; }
         .alert-phrase {
             background-color: #fff3cd;
-            border: 1px solid #ffeeba;
             color: #856404;
-            padding: 6px;
+            padding: 10px;
             border-radius: 4px;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 10px;
-            font-size: 11.5px;
+            margin-bottom: 15px;
         }
-        .section-heading {
-            font-size: 12.5px;
-            font-weight: 700;
-            border-bottom: 1px dashed #1e5799;
-            padding-bottom: 2px;
-            margin-bottom: 6px;
-            color: #1e5799;
-        }
-        .doc-list, .note-list {
-            list-style: none;
-            padding-right: 5px;
-            margin-bottom: 10px;
-            font-size: 11px;
-            line-height: 1.4;
-        }
-        .doc-list li::before { content: "✓ "; color: #28a745; font-weight: bold; }
-        .note-list li::before { content: "* "; color: #dc3545; font-weight: bold; }
-        
-        .ticket-footer {
-            text-align: center;
-            font-size: 11.5px;
-            font-weight: 700;
-            padding-top: 8px;
-            border-top: 1px solid #ddd;
-            color: #444;
-            margin-top: 10px;
-        }
-        .no-print-zone { max-width: 800px; margin: 0 auto; }
-        
+        .doc-list li { font-size: 12px; margin-bottom: 5px; }
         @media print {
-            body { background: none; padding: 0; }
             .no-print-zone { display: none !important; }
-            #ticket-wrapper { display: block !important; padding: 0; }
-            .ticket-container { border: 3px double #1e5799; width: 100%; height: 100%; padding: 8mm; }
+            #ticket-wrapper { display: block !important; }
         }
     </style>
 </head>
@@ -176,14 +100,13 @@
 
 <div class="container no-print-zone" id="form-container">
     <div class="official-header">
-        <div class="line-1">محافظة دمياط</div>
-        <div class="line-2">مديرية التربية والتعليم</div>
-        <div class="line-3">إدارة الدمج الشامل</div>
+        <h4>محافظة دمياط</h4>
+        <h5>مديرية التربية والتعليم - إدارة الدمج الشامل</h5>
     </div>
 
     <div class="card main-card">
         <div class="card-header-custom">
-            <h3 class="mb-0 fw-bold"> حجز موعد تقديم أوراق الدمج</h3>
+            <h4 class="mb-0">حجز موعد تقديم أوراق الدمج</h4>
         </div>
         <div class="card-body p-4">
             <div id="alert-box" class="alert d-none"></div>
@@ -191,19 +114,19 @@
             <form id="booking-form">
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">اسم الطالب رباعي <span class="text-danger">*</span></label>
-                        <input type="text" id="studentName" class="form-control" required placeholder="أدخل الاسم رباعياً">
+                        <label class="form-label fw-bold">اسم الطالب رباعي</label>
+                        <input type="text" id="studentName" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">الرقم القومي للطالب (14 رقم) <span class="text-danger">*</span></label>
-                        <input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14" pattern="\d{14}" placeholder="أدخل 14 رقماً">
+                        <label class="form-label fw-bold">الرقم القومي للطالب (14 رقم)</label>
+                        <input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14" pattern="\d{14}">
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">الإدارة التعليمية <span class="text-danger">*</span></label>
-                        <input type="text" id="eduAdmin" class="form-control" required placeholder="مثال: إدارة دمياط">
+                        <label class="form-label fw-bold">الإدارة التعليمية</label>
+                        <input type="text" id="eduAdmin" class="form-control" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">المرحلة التعليمية <span class="text-danger">*</span></label>
+                        <label class="form-label fw-bold">المرحلة التعليمية</label>
                         <select id="eduStage" class="form-select" required>
                             <option value="" disabled selected>اختر المرحلة...</option>
                             <option value="رياض أطفال">رياض أطفال</option>
@@ -214,15 +137,15 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">الصف الدراسي <span class="text-danger">*</span></label>
-                        <input type="text" id="eduClass" class="form-control" required placeholder="مثال: الصف الأول">
+                        <label class="form-label fw-bold">الصف الدراسي</label>
+                        <input type="text" id="eduClass" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">اسم المدرسة <span class="text-danger">*</span></label>
-                        <input type="text" id="schoolName" class="form-control" required placeholder="اسم المدرسة كاملاً">
+                        <label class="form-label fw-bold">اسم المدرسة</label>
+                        <input type="text" id="schoolName" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">نوع الإجراء المطلوب <span class="text-danger">*</span></label>
+                        <label class="form-label fw-bold">نوع الإجراء</label>
                         <select id="procedureType" class="form-select" required>
                             <option value="" disabled selected>اختر الإجراء...</option>
                             <option value="دمج لأول مرة">دمج لأول مرة</option>
@@ -231,25 +154,25 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">نوع الإعاقة <span class="text-danger">*</span></label>
-                        <input type="text" id="disabilityType" class="form-control" required placeholder="مثال: إعاقة ذهنية">
+                        <label class="form-label fw-bold">نوع الإعاقة</label>
+                        <input type="text" id="disabilityType" class="form-control" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">درجة مقياس الذكاء <span class="text-danger">*</span></label>
-                        <input type="number" id="iqScore" class="form-control" required placeholder="الدرجة">
+                        <label class="form-label fw-bold">درجة الذكاء</label>
+                        <input type="number" id="iqScore" class="form-control" required>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-bold">رقم التليفون <span class="text-danger">*</span></label>
-                        <input type="tel" id="phoneNumber" class="form-control" required placeholder="رقم متاح للتواصل">
+                        <label class="form-label fw-bold">رقم التليفون</label>
+                        <input type="tel" id="phoneNumber" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">تاريخ الحجز <span class="text-danger">*</span></label>
+                        <label class="form-label fw-bold">تاريخ الحجز</label>
                         <input type="date" id="bookingDate" class="form-control" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label fw-bold">الفترة الزمنية المتاحة <span class="text-danger">*</span></label>
+                        <label class="form-label fw-bold">الفترة الزمنية</label>
                         <select id="timeSlot" class="form-select" required>
-                            <option value="" disabled selected>اختر فترة زمنية...</option>
+                            <option value="" disabled selected>اختر فترة...</option>
                             <option value="الفترة الأولى (09:00 ص - 10:00 ص)">الفترة الأولى (09:00 ص - 10:00 ص)</option>
                             <option value="الفترة الثانية (10:00 ص - 11:00 ص)">الفترة الثانية (10:00 ص - 11:00 ص)</option>
                             <option value="الفترة الثالثة (11:00 ص - 12:00 م)">الفترة الثالثة (11:00 ص - 12:00 م)</option>
@@ -259,7 +182,7 @@
                     </div>
                 </div>
                 <div class="mt-4 text-center">
-                    <button type="submit" id="submit-btn" class="btn btn-submit w-50 py-2 fs-5">تأكيد الحجز وإصدار التذكرة</button>
+                    <button type="submit" id="submit-btn" class="btn btn-submit w-50 fs-5">تأكيد الحجز وإصدار التذكرة</button>
                 </div>
             </form>
         </div>
@@ -268,92 +191,67 @@
 
 <div id="ticket-wrapper">
     <div class="no-print-zone text-center mb-4 mt-3">
-        <div class="alert alert-success d-inline-block px-5 mb-3">🎉 تم الحجز بنجاح! يرجى طباعة التذكرة أو حفظها كـ PDF</div><br>
-        <button class="btn btn-success me-2 px-4" onclick="downloadPDF()">تحميل التذكرة بصيغة PDF</button>
-        <button class="btn btn-primary px-4" onclick="window.print()">طباعة فورية</button>
-        <button class="btn btn-outline-secondary px-4 ms-2" onclick="location.reload()">حجز جديد</button>
+        <div class="alert alert-success d-inline-block px-5">تم الحجز بنجاح!</div><br>
+        <button class="btn btn-success me-2" onclick="downloadPDF()">حفظ التذكرة PDF</button>
+        <button class="btn btn-primary" onclick="window.print()">طباعة التذكرة</button>
+        <button class="btn btn-outline-secondary ms-2" onclick="location.reload()">حجز جديد</button>
     </div>
 
     <div class="ticket-container" id="printable-ticket">
-        <div class="ticket-header">
-            <div class="header-right-text">
-                محافظة دمياط<br>
-                مديرية التربية والتعليم<br>
-                إدارة الدمج الشامل
-            </div>
-            <div></div>
-        </div>
-
-        <div class="ticket-main-title">
-            تذكرة حجز موعد تقديم أوراق
-        </div>
+        <div class="text-end mb-2" style="font-size: 12px; font-weight: bold;">محافظة دمياط - مديرية التربية والتعليم - إدارة الدمج</div>
+        <div class="ticket-main-title">تذكرة حجز موعد تقديم أوراق</div>
 
         <div class="ticket-meta-box">
             <div class="meta-item">
-                <div class="meta-item-title">رقم التذكرة الإلكتروني</div>
+                <div style="font-size: 11px;">رقم التذكرة</div>
                 <div class="meta-item-value" id="t-number">--</div>
             </div>
             <div class="meta-item">
-                <div class="meta-item-title">تاريخ الزيارة</div>
+                <div style="font-size: 11px;">تاريخ الزيارة</div>
                 <div class="meta-item-value" id="t-date">--</div>
             </div>
             <div class="meta-item">
-                <div class="meta-item-title">وقت تقديم الأوراق</div>
+                <div style="font-size: 11px;">وقت الحضور</div>
                 <div class="meta-item-value" id="t-slot">--</div>
             </div>
         </div>
 
-        <div class="section-heading">بيانات الطالب المعني بالطلب</div>
         <table class="data-table">
-            <tr><th>اسم الطالب رباعي</th><td id="t-name">--</td></tr>
+            <tr><th>اسم الطالب</th><td id="t-name">--</td></tr>
             <tr><th>الرقم القومي</th><td id="t-nationalId">--</td></tr>
-            <tr><th>الإدارة التعليمية</th><td id="t-admin">--</td></tr>
-            <tr><th>المرحلة والصف</th><td id="t-stageClass">--</td></tr>
-            <tr><th>اسم المدرسة</th><td id="t-school">--</td></tr>
-            <tr><th>نوع الإجراء المطلوب</th><td id="t-procedure">--</td></tr>
-            <tr><th>نوع الإعاقة ومقياس الذكاء</th><td id="t-disability">--</td></tr>
-            <tr><th>رقم التليفون للاتصال</th><td id="t-phone">--</td></tr>
+            <tr><th>المدرسة</th><td id="t-school">--</td></tr>
+            <tr><th>الإجراء</th><td id="t-procedure">--</td></tr>
+            <tr><th>التليفون</th><td id="t-phone">--</td></tr>
         </table>
 
-        <div class="alert-phrase">
-            يرجى الحضور قبل الموعد المحدد بـ15 م ، ولن يتم استقبال الطلب بدون هذه التذكرة
-        </div>
+        <div class="alert-phrase">يرجى الحضور في الموعد المحدد وممارسة الإجراءات الاحترازية</div>
 
-        <div class="section-heading">المستندات المطلوبة للتقديم</div>
+        <div style="font-size: 13px; font-weight: bold; border-bottom: 1px solid #333; margin-bottom: 10px;">المستندات المطلوبة:</div>
         <ul class="doc-list">
-            <li>عدد افادتين قيد للطالب حديثة ومختومة بشعار الجمهورية.</li>
-            <li>أصل شهادة ميلاد كمبيوتر حديثة للطالب.</li>
-            <li>أصل مقياس الذكاء وأصل التقرير الطبي من جهة رسمية معتمدة.</li>
-            <li>تقرير احالة الأخصائي الاجتماعي بالمدرسة.</li>
+            <li>إفادة قيد حديثة مختومة بشعار الجمهورية.</li>
+            <li>أصل شهادة ميلاد الطالب.</li>
+            <li>أصل تقرير طبي ومقياس ذكاء من جهة رسمية.</li>
             <li>صورة بطاقة ولي الأمر (الأب) سارية.</li>
         </ul>
-
-        <div class="section-heading">ملحوظات تنظيمية هامة</div>
-        <ul class="note-list">
-            <li>ضرورة تواجد الطالب وولي الأمر شخصياً في الموعد المحدد.</li>
-            <li>في حالة الطلاق، يجب إحضار أصل الولاية التعليمية للأم.</li>
-        </ul>
-
-        <div class="ticket-footer">
-            تم إصدار هذه التذكرة آلياً - إدارة الدمج الشامل بدمياط
+        
+        <div class="text-center mt-4" style="font-size: 11px; border-top: 1px solid #eee; padding-top: 5px;">
+            نظام الحجز الإلكتروني - إدارة الدمج الشامل بدمياط
         </div>
     </div>
 </div>
 
 <script>
-    // ⚠️ تأكد من وضع رابط الـ Web App الخاص بك هنا بعد النشر
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzQk614GuKVqq9wmS8No-RttDJpiEZYx2bOzRRmfKVv6TiyKRFO2Pw_R2mxQ4gxzHNg/exec";
+    // ضع رابط الـ Web App الخاص بك هنا
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzQk614GuKVqq9wmS8No-RttDJpiEZYx2bOzRRmfKVv6TiyKRFO2Pw_R2mxQ4gxzHNg/exec';
 
     const dateInput = document.getElementById('bookingDate');
     const today = new Date();
     dateInput.min = today.toISOString().split('T')[0];
 
-    // قيود التاريخ (الجمعة والسبت)
     dateInput.addEventListener('input', function() {
-        const selectedDate = new Date(this.value);
-        const day = selectedDate.getDay();
+        const day = new Date(this.value).getDay();
         if (day === 5 || day === 6) {
-            alert("عذراً! الإدارة في عطلة رسمية يومي الجمعة والسبت. يرجى اختيار يوم آخر.");
+            alert("الجمعة والسبت عطلة رسمية، يرجى اختيار يوم آخر.");
             this.value = '';
         }
     });
@@ -361,12 +259,12 @@
     document.getElementById('booking-form').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const submitBtn = document.getElementById('submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.innerText = "جاري معالجة الطلب والتحقق...";
-        showAlert("يتم الآن التحقق من سعة اليوم والفترة الزمنية، برجاء الانتظار...", "info");
+        const btn = document.getElementById('submit-btn');
+        btn.disabled = true;
+        btn.innerText = "جاري الحفظ...";
+        showAlert("يتم الآن معالجة طلبك، فضلاً انتظر ثوانٍ...", "info");
 
-        const payload = {
+        const formData = {
             studentName: document.getElementById('studentName').value,
             nationalId: document.getElementById('nationalId').value,
             eduAdmin: document.getElementById('eduAdmin').value,
@@ -381,73 +279,63 @@
             timeSlot: document.getElementById('timeSlot').value
         };
 
+        // استخدام تقنية text/plain لتجنب مشاكل الـ CORS في المتصفحات
         fetch(WEB_APP_URL, {
             method: 'POST',
-            mode: 'no-cors', // نستخدم no-cors في حالة واجهت مشاكل، لكن الأفضل معالجة JSON كما فعلنا في السكريبت
-            cache: 'no-cache',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        /* ملاحظة: عند استخدام no-cors لن تستطيع قراءة الرد. 
-           لذا يفضل استخدام التنسيق العادي إذا كان السكريبت يدعم Headers المضافة */
-        
-        // سنستخدم Fetch العادي لأننا أضفنا Headers في السكريبت
-        fetch(WEB_APP_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'text/plain' }, // نرسلها كـ text لتجنب مشاكل الـ Options في بعض السيرفرات
-            body: JSON.stringify(payload)
+            mode: 'cors',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(formData)
         })
         .then(response => response.json())
-        .then(res => {
-            if (res.status === "error") {
-                showAlert(res.message, "danger");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "تأكيد الحجز وإصدار التذكرة";
-                window.scrollTo(0,0);
+        .then(result => {
+            if (result.status === "success") {
+                showTicket(result.ticketNumber, formData);
             } else {
-                // تعبئة بيانات التذكرة من الاستجابة والنموذج
-                document.getElementById('t-number').innerText = res.ticketNumber;
-                document.getElementById('t-date').innerText = payload.bookingDate;
-                document.getElementById('t-slot').innerText = payload.timeSlot;
-                document.getElementById('t-name').innerText = payload.studentName;
-                document.getElementById('t-nationalId').innerText = payload.nationalId;
-                document.getElementById('t-admin').innerText = payload.eduAdmin;
-                document.getElementById('t-stageClass').innerText = payload.eduStage + " - " + payload.eduClass;
-                document.getElementById('t-school').innerText = payload.schoolName;
-                document.getElementById('t-procedure').innerText = payload.procedureType;
-                document.getElementById('t-disability').innerText = payload.disabilityType + " (مقياس: " + payload.iqScore + ")";
-                document.getElementById('t-phone').innerText = payload.phoneNumber;
-                
-                // الانتقال لعرض التذكرة
-                document.getElementById('form-container').style.display = 'none';
-                document.getElementById('ticket-wrapper').style.display = 'block';
-                window.scrollTo(0, 0);
+                showAlert(result.message, "danger");
+                btn.disabled = false;
+                btn.innerText = "تأكيد الحجز وإصدار التذكرة";
             }
         })
         .catch(error => {
-            showAlert("خطأ في الاتصال بالخادم. تأكد من نشر السكريبت بشكل صحيح وتحديث الرابط WEB_APP_URL.", "danger");
-            submitBtn.disabled = false;
-            submitBtn.innerText = "تأكيد الحجز وإصدار التذكرة";
+            console.error(error);
+            // في حال وصول البيانات للشيت ولكن المتصفح منع الرد، سنحاول إظهار التذكرة برقم تقريبي أو رسالة واضحة
+            showAlert("حدثت مشكلة في عرض التذكرة، لكن البيانات قد تكون وصلت. يرجى مراجعة الإدارة إذا لم يظهر رقم التذكرة.", "warning");
+            btn.disabled = false;
+            btn.innerText = "حاول مرة أخرى";
         });
     });
 
+    function showTicket(ticketNum, data) {
+        document.getElementById('t-number').innerText = ticketNum;
+        document.getElementById('t-date').innerText = data.bookingDate;
+        document.getElementById('t-slot').innerText = data.timeSlot;
+        document.getElementById('t-name').innerText = data.studentName;
+        document.getElementById('t-nationalId').innerText = data.nationalId;
+        document.getElementById('t-school').innerText = data.schoolName;
+        document.getElementById('t-procedure').innerText = data.procedureType;
+        document.getElementById('t-phone').innerText = data.phoneNumber;
+
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('ticket-wrapper').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
     function showAlert(msg, type) {
-        const alertBox = document.getElementById('alert-box');
-        alertBox.className = `alert alert-${type}`;
-        alertBox.innerText = msg;
-        alertBox.classList.remove('d-none');
+        const box = document.getElementById('alert-box');
+        box.className = `alert alert-${type}`;
+        box.innerText = msg;
+        box.classList.remove('d-none');
     }
 
     function downloadPDF() {
         const element = document.getElementById('printable-ticket');
-        const opt = {
-            margin:       [10, 5, 10, 5],
-            filename:     'Dmg-Ticket-' + document.getElementById('t-number').innerText + '.pdf',
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+        html2pdf().from(element).set({
+            margin: 10,
+            filename: 'Dmg-Ticket.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        }).save();
     }
 </script>
 </body>
