@@ -50,7 +50,6 @@
             border-radius: 6px;
         }
         
-        /* الحجم المحكم للتذكرة لضمان الخروج في صفحة واحدة A4 تماماً */
         #ticket-wrapper {
             display: none;
             background: #fff;
@@ -197,7 +196,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-bold">الرقم القومي للطالب (14 رقم) <span class="text-danger">*</span></label>
-                        <input type="text" id="nationalId" class="form-control" required maxlength="14" pattern="\d{14}" placeholder="أدخل 14 رقماً للتحقق والمنع من التكرار">
+                        <input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14" pattern="\d{14}" placeholder="أدخل 14 رقماً">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-bold">الإدارة التعليمية <span class="text-danger">*</span></label>
@@ -269,8 +268,10 @@
 
 <div id="ticket-wrapper">
     <div class="no-print-zone text-center mb-4 mt-3">
-        <button class="btn btn-success me-2 px-4" onclick="downloadPDF()">تحميل التذكرة بصيغة PDF (صفحة واحدة)</button>
-        <button class="btn btn-primary px-4" onclick="window.print()">طباعة التذكرة المباشرة</button>
+        <div class="alert alert-success d-inline-block px-5 mb-3">🎉 تم الحجز بنجاح! يرجى طباعة التذكرة أو حفظها كـ PDF</div><br>
+        <button class="btn btn-success me-2 px-4" onclick="downloadPDF()">تحميل التذكرة بصيغة PDF</button>
+        <button class="btn btn-primary px-4" onclick="window.print()">طباعة فورية</button>
+        <button class="btn btn-outline-secondary px-4 ms-2" onclick="location.reload()">حجز جديد</button>
     </div>
 
     <div class="ticket-container" id="printable-ticket">
@@ -284,7 +285,7 @@
         </div>
 
         <div class="ticket-main-title">
-            حجز موعد تقديم أوراق إلى إدارة الدمج الشامل
+            تذكرة حجز موعد تقديم أوراق
         </div>
 
         <div class="ticket-meta-box">
@@ -315,53 +316,44 @@
         </table>
 
         <div class="alert-phrase">
-            يرجى الحضور قبل الموعد المحدد بـ15 دقيقة ، ولن يسمح باستكمال الأوراق بدون تذكرة الحجز ورقمها
+            يرجى الحضور قبل الموعد المحدد بـ15 م ، ولن يتم استقبال الطلب بدون هذه التذكرة
         </div>
 
         <div class="section-heading">المستندات المطلوبة للتقديم</div>
         <ul class="doc-list">
-            <li>عدد افادتين قيد للطالب حديثة ومختومة.</li>
-            <li>صورة شخصية حديثة للطالب.</li>
-            <li>أصل شهادة ميلاد كمبيوتر للطالب.</li>
-            <li>أصل مقياس الذكاء للطالب من جهة رسمية معتمدة.</li>
-            <li>أصل التقرير الطبي للطالب.</li>
+            <li>عدد افادتين قيد للطالب حديثة ومختومة بشعار الجمهورية.</li>
+            <li>أصل شهادة ميلاد كمبيوتر حديثة للطالب.</li>
+            <li>أصل مقياس الذكاء وأصل التقرير الطبي من جهة رسمية معتمدة.</li>
             <li>تقرير احالة الأخصائي الاجتماعي بالمدرسة.</li>
-            <li>أصل المقياس السمعي / البصري إن وجد بحسب الإعاقة.</li>
             <li>صورة بطاقة ولي الأمر (الأب) سارية.</li>
         </ul>
 
         <div class="section-heading">ملحوظات تنظيمية هامة</div>
         <ul class="note-list">
-            <li>جميع الأوراق يجب أن تكون معتمدة ومختومة من الجهات المختصة بشعار الجمهورية.</li>
-            <li>ضرورة تواجد الطالب وولي الأمر (الأب) أو من لديه توكيل رسمي خاص بالتعامل مع الوزارة.</li>
-            <li>الولاية التعليمية للأم وصورة منها في حالة الانفصال الرسمي بين الزوجين.</li>
+            <li>ضرورة تواجد الطالب وولي الأمر شخصياً في الموعد المحدد.</li>
+            <li>في حالة الطلاق، يجب إحضار أصل الولاية التعليمية للأم.</li>
         </ul>
 
         <div class="ticket-footer">
-            هذه التذكرة صالحة لموعد واحد فقط ويتم التحقق من رقمها تلقائياً بالمنظومة
+            تم إصدار هذه التذكرة آلياً - إدارة الدمج الشامل بدمياط
         </div>
     </div>
 </div>
 
 <script>
-    // ⚠️ استبدل الرابط أدناه برابط الـ Web App الخاص بك بعد إجراء الـ Deployment المحدث
+    // ⚠️ تأكد من وضع رابط الـ Web App الخاص بك هنا بعد النشر
     const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzQk614GuKVqq9wmS8No-RttDJpiEZYx2bOzRRmfKVv6TiyKRFO2Pw_R2mxQ4gxzHNg/exec';
 
     const dateInput = document.getElementById('bookingDate');
     const today = new Date();
     dateInput.min = today.toISOString().split('T')[0];
 
+    // قيود التاريخ (الجمعة والسبت)
     dateInput.addEventListener('input', function() {
         const selectedDate = new Date(this.value);
         const day = selectedDate.getDay();
-        const month = selectedDate.getMonth() + 1;
         if (day === 5 || day === 6) {
-            alert("عذراً! لا يمكن الحجز في أيام الجمعة والسبت (العطلة الرسمية للإدارة).");
-            this.value = '';
-            return;
-        }
-        if (month < 6 || month > 11) {
-            alert("الحجز متاح فقط في الفترة الموسمية من أول يونيو إلى نهاية نوفمبر.");
+            alert("عذراً! الإدارة في عطلة رسمية يومي الجمعة والسبت. يرجى اختيار يوم آخر.");
             this.value = '';
         }
     });
@@ -371,8 +363,8 @@
         
         const submitBtn = document.getElementById('submit-btn');
         submitBtn.disabled = true;
-        submitBtn.innerText = "جاري التحقق وحفظ البيانات...";
-        showAlert("جاري إرسال البيانات والتحقق من الشروط، يرجى الانتظار لحين إصدار التذكرة...", "info");
+        submitBtn.innerText = "جاري معالجة الطلب والتحقق...";
+        showAlert("يتم الآن التحقق من سعة اليوم والفترة الزمنية، برجاء الانتظار...", "info");
 
         const payload = {
             studentName: document.getElementById('studentName').value,
@@ -389,10 +381,20 @@
             timeSlot: document.getElementById('timeSlot').value
         };
 
-        // إرسال كـ text/plain متوافق مع CORS لقراءة تفاصيل التكرار
         fetch(WEB_APP_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'text/plain' },
+            mode: 'no-cors', // نستخدم no-cors في حالة واجهت مشاكل، لكن الأفضل معالجة JSON كما فعلنا في السكريبت
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        /* ملاحظة: عند استخدام no-cors لن تستطيع قراءة الرد. 
+           لذا يفضل استخدام التنسيق العادي إذا كان السكريبت يدعم Headers المضافة */
+        
+        // سنستخدم Fetch العادي لأننا أضفنا Headers في السكريبت
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain' }, // نرسلها كـ text لتجنب مشاكل الـ Options في بعض السيرفرات
             body: JSON.stringify(payload)
         })
         .then(response => response.json())
@@ -401,12 +403,11 @@
                 showAlert(res.message, "danger");
                 submitBtn.disabled = false;
                 submitBtn.innerText = "تأكيد الحجز وإصدار التذكرة";
+                window.scrollTo(0,0);
             } else {
-                const dateObj = new Date(payload.bookingDate);
-                const arabicDateStr = dateObj.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-                
+                // تعبئة بيانات التذكرة من الاستجابة والنموذج
                 document.getElementById('t-number').innerText = res.ticketNumber;
-                document.getElementById('t-date').innerText = arabicDateStr;
+                document.getElementById('t-date').innerText = payload.bookingDate;
                 document.getElementById('t-slot').innerText = payload.timeSlot;
                 document.getElementById('t-name').innerText = payload.studentName;
                 document.getElementById('t-nationalId').innerText = payload.nationalId;
@@ -414,16 +415,17 @@
                 document.getElementById('t-stageClass').innerText = payload.eduStage + " - " + payload.eduClass;
                 document.getElementById('t-school').innerText = payload.schoolName;
                 document.getElementById('t-procedure').innerText = payload.procedureType;
-                document.getElementById('t-disability').innerText = payload.disabilityType + " (درجة الذكاء: " + payload.iqScore + ")";
+                document.getElementById('t-disability').innerText = payload.disabilityType + " (مقياس: " + payload.iqScore + ")";
                 document.getElementById('t-phone').innerText = payload.phoneNumber;
                 
+                // الانتقال لعرض التذكرة
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('ticket-wrapper').style.display = 'block';
                 window.scrollTo(0, 0);
             }
         })
         .catch(error => {
-            showAlert("حدث خطأ أثناء الاتصال بجوجل شيت. تأكد من نشر السكريبت كـ Web App بصلاحية الوصول للجميع وتحديث الـ URL.", "danger");
+            showAlert("خطأ في الاتصال بالخادم. تأكد من نشر السكريبت بشكل صحيح وتحديث الرابط WEB_APP_URL.", "danger");
             submitBtn.disabled = false;
             submitBtn.innerText = "تأكيد الحجز وإصدار التذكرة";
         });
@@ -439,10 +441,10 @@
     function downloadPDF() {
         const element = document.getElementById('printable-ticket');
         const opt = {
-            margin:       0,
-            filename:     'ticket-dmg-domiat.pdf',
-            image:        { type: 'jpeg', quality: 1.0 },
-            html2canvas:  { scale: 2.5, useCORS: true },
+            margin:       [10, 5, 10, 5],
+            filename:     'Dmg-Ticket-' + document.getElementById('t-number').innerText + '.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
         html2pdf().set(opt).from(element).save();
