@@ -4,80 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حجز مواعيد إدارة الدمج بدمياط</title>
-    <!-- خط القاهرة وتنسيق بوتستراب -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; }
+        body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; text-align: right; }
         .no-print-zone { max-width: 850px; margin: 20px auto; }
-        .main-card { border-radius: 15px; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .card-header-custom { background: #1e5799; color: white; border-radius: 15px 15px 0 0 !important; padding: 20px; text-align: center; }
-        
-        /* تنسيق التذكرة */
-        #ticket-wrapper { display: none; }
-        .ticket-container {
-            width: 100%;
-            max-width: 700px;
-            margin: 20px auto;
-            background: white;
-            padding: 30px;
-            border: 2px solid #1e5799;
-            border-radius: 10px;
-            position: relative;
-        }
-        .ticket-header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .ticket-title { text-align: center; font-size: 22px; font-weight: bold; margin: 20px 0; background: #f8f9fa; padding: 10px; border: 1px solid #ddd; }
-        .meta-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .meta-box { border: 1px solid #1e5799; padding: 10px; text-align: center; border-radius: 5px; }
-        .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .data-table th, .data-table td { border: 1px solid #ddd; padding: 12px; text-align: right; }
-        .data-table th { background: #f8f9fa; width: 30%; color: #333; }
-        
-        @media print {
-            body { background: white; }
-            .no-print-zone { display: none !important; }
-            #ticket-wrapper { display: block !important; }
-            .ticket-container { border: 2px solid #000; width: 100%; margin: 0; }
-        }
+        .main-card { border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: none; }
+        .official-header { background: #fff; padding: 15px; border-radius: 15px 15px 0 0; border-bottom: 3px solid #1e5799; text-align: center; color: #333; }
+        .card-header-custom { background: #1e5799; color: white; padding: 15px; text-align: center; }
+        #ticket-wrapper { display: none; padding: 20px; }
+        .ticket-container { border: 2px solid #1e5799; padding: 20px; background: white; border-radius: 10px; max-width: 700px; margin: auto; }
+        .data-table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        .data-table th, .data-table td { border: 1px solid #ddd; padding: 10px; text-align: right; }
+        .data-table th { background-color: #f8f9fa; width: 30%; }
+        @media print { .no-print-zone { display: none; } #ticket-wrapper { display: block; } }
     </style>
 </head>
 <body>
 
 <div class="container no-print-zone" id="form-container">
     <div class="card main-card">
-        <div class="card-header-custom">
-            <h3>نظام حجز مواعيد إدارة الدمج الشامل - دمياط</h3>
-            <p class="mb-0">يرجى ملء البيانات بدقة للحصول على موعد</p>
+        <!-- الترويسة الرسمية المطلوبة -->
+        <div class="official-header">
+            <h5>محافظة دمياط</h5>
+            <h5>مديرية التربية والتعليم</h5>
+            <h5>إدارة الدمج الشامل</h5>
         </div>
+        
+        <div class="card-header-custom">
+            <h4 class="mb-0">نظام حجز مواعيد مراجعة الملفات</h4>
+        </div>
+
         <div class="card-body p-4">
             <form id="booking-form">
                 <div class="row g-3">
                     <div class="col-md-6"><label class="form-label fw-bold">اسم الطالب رباعي</label><input type="text" id="studentName" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">الرقم القومي للطالب</label><input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14" placeholder="14 رقم"></div>
+                    <div class="col-md-6"><label class="form-label fw-bold">الرقم القومي للطالب</label><input type="text" id="nationalId" class="form-control" required maxlength="14" minlength="14"></div>
                     <div class="col-md-4"><label class="form-label fw-bold">الإدارة التعليمية</label><input type="text" id="eduAdmin" class="form-control" required></div>
                     <div class="col-md-4"><label class="form-label fw-bold">المرحلة</label>
                         <select id="eduStage" class="form-select" required>
-                            <option value="">اختر المرحلة...</option>
-                            <option>رياض أطفال</option><option>ابتدائي</option><option>اعدادي</option><option>ثانوي</option>
+                            <option value="">اختر...</option><option>رياض أطفال</option><option>ابتدائي</option><option>اعدادي</option><option>ثانوي</option>
                         </select>
                     </div>
                     <div class="col-md-4"><label class="form-label fw-bold">الصف</label><input type="text" id="eduClass" class="form-control" required></div>
                     <div class="col-md-6"><label class="form-label fw-bold">المدرسة</label><input type="text" id="schoolName" class="form-control" required></div>
                     <div class="col-md-6"><label class="form-label fw-bold">نوع الإجراء</label>
                         <select id="procedureType" class="form-select" required>
-                            <option value="">اختر الإجراء...</option>
+                            <option value="">اختر...</option>
                             <option>دمج لأول مرة</option>
                             <option>تجديد دمج</option>
-                            <option>إلغاء دمج</option> <!-- تمت الإضافة هنا كما طلبت -->
+                            <option>إلغاء دمج</option>
                         </select>
                     </div>
                     <div class="col-md-4"><label class="form-label fw-bold">نوع الإعاقة</label><input type="text" id="disabilityType" class="form-control" required></div>
                     <div class="col-md-4"><label class="form-label fw-bold">درجة الذكاء</label><input type="number" id="iqScore" class="form-control" required></div>
                     <div class="col-md-4"><label class="form-label fw-bold">رقم التليفون</label><input type="tel" id="phoneNumber" class="form-control" required></div>
-                    <div class="col-md-6"><label class="form-label fw-bold">تاريخ الحجز</label><input type="date" id="bookingDate" class="form-control" required></div>
+                    <div class="col-md-6"><label class="form-label fw-bold">تاريخ الحجز (من يونيو إلى نوفمبر)</label>
+                        <input type="date" id="bookingDate" class="form-control" required>
+                    </div>
                     <div class="col-md-6"><label class="form-label fw-bold">الفترة الزمنية</label>
                         <select id="timeSlot" class="form-select" required>
-                            <option value="">اختر الفترة...</option>
+                            <option value="">اختر...</option>
                             <option>09:00 ص - 10:00 ص</option>
                             <option>10:00 ص - 11:00 ص</option>
                             <option>11:00 ص - 12:00 م</option>
@@ -86,7 +73,7 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" id="submit-btn" class="btn btn-primary w-100 mt-4 py-2 fs-5 fw-bold">تأكيد الحجز وإصدار التذكرة</button>
+                <button type="submit" id="submit-btn" class="btn btn-primary w-100 mt-4 py-2 fw-bold">تأكيد الحجز وإصدار التذكرة</button>
             </form>
         </div>
     </div>
@@ -95,51 +82,55 @@
 <!-- واجهة التذكرة -->
 <div id="ticket-wrapper">
     <div class="no-print-zone text-center mb-4">
-        <button class="btn btn-success btn-lg me-2" onclick="window.print()">طباعة التذكرة (PDF)</button>
+        <button class="btn btn-success btn-lg me-2" onclick="window.print()">طباعة التذكرة</button>
         <button class="btn btn-secondary btn-lg" onclick="location.reload()">حجز جديد</button>
     </div>
-    <div class="ticket-container" id="printable-area">
-        <div class="ticket-header">
-            <div>محافظة دمياط<br>مديرية التربية والتعليم</div>
-            <div class="text-center"><b>إدارة الدمج الشامل</b></div>
+    <div class="ticket-container">
+        <div class="official-header" style="border:none">
+            <h6>محافظة دمياط - مديرية التربية والتعليم</h6>
+            <h6>إدارة الدمج الشامل</h6>
         </div>
-        <div class="ticket-title">تذكرة موعد مراجعة ملف دمج</div>
-        <div class="meta-grid">
-            <div class="meta-box"><b>رقم التذكرة</b><br><span id="t-num"></span></div>
-            <div class="meta-box"><b>تاريخ الزيارة</b><br><span id="t-date"></span></div>
-            <div class="meta-box"><b>الفترة</b><br><span id="t-slot"></span></div>
+        <h4 class="text-center mt-3">تذكرة مراجعة ملف دمج</h4>
+        <div class="row text-center my-3">
+            <div class="col-4 border-end"><b>رقم التذكرة</b><br><span id="t-num"></span></div>
+            <div class="col-4 border-end"><b>التاريخ</b><br><span id="t-date"></span></div>
+            <div class="col-4"><b>الفترة</b><br><span id="t-slot"></span></div>
         </div>
         <table class="data-table">
-            <tr><th>اسم الطالب</th><td id="t-name"></td></tr>
+            <tr><th>الاسم</th><td id="t-name"></td></tr>
             <tr><th>الرقم القومي</th><td id="t-id"></td></tr>
-            <tr><th>المدرسة والصف</th><td id="t-info"></td></tr>
-            <tr><th>نوع الإجراء</th><td id="t-proc"></td></tr>
-            <tr><th>الإعاقة / الذكاء</th><td id="t-dis"></td></tr>
-            <tr><th>رقم التليفون</th><td id="t-phone"></td></tr>
+            <tr><th>الإجراء</th><td id="t-proc"></td></tr>
+            <tr><th>المدرسة</th><td id="t-school"></td></tr>
         </table>
-        <div class="mt-4 p-2 bg-light border text-center fw-bold" style="font-size: 14px;">
-            يرجى الحضور في الموعد المحدد مع أصل المستندات المطلوبة.
-        </div>
+        <p class="mt-4 text-center small fw-bold">يرجى الحضور في الموعد المحدد مع كافة الأوراق الرسمية.</p>
     </div>
 </div>
 
 <script>
-    // 1. ضع رابط النشر الخاص بك هنا
+    // ضع رابط النشر الخاص بك هنا
     const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyLDtdQS9OpLe1WA8oa2S8mjWy0LFSYT5kFc5GRu65iMA5BYdFiLNd4R5grpKPjSU02CA/exec'; 
 
-    // منع اختيار أيام سابقة (تاريخ اليوم هو الحد الأدنى)
     const dateInput = document.getElementById('bookingDate');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
+    
+    // إعداد حدود التاريخ (من أول يونيو لنهاية نوفمبر للسنة الحالية)
+    const currentYear = new Date().getFullYear();
+    dateInput.min = `${currentYear}-06-01`;
+    dateInput.max = `${currentYear}-11-30`;
 
-    // معالجة إرسال النموذج
+    // منع اختيار الجمعة والسبت من الكالندر مباشرة
+    dateInput.addEventListener('input', function(e) {
+        const day = new Date(this.value).getUTCDay();
+        if([5, 6].includes(day)) { // 5=الجمعة، 6=السبت في UTC
+            alert('عذراً، الجمعة والسبت أيام عطلة رسمية. يرجى اختيار يوم آخر.');
+            this.value = '';
+        }
+    });
+
     document.getElementById('booking-form').addEventListener('submit', function(e) {
         e.preventDefault();
-        
         const btn = document.getElementById('submit-btn');
-        btn.disabled = true;
-        btn.innerText = "جاري التحقق والحجز...";
-
+        btn.disabled = true; btn.innerText = "جاري الحجز...";
+        
         const payload = {
             studentName: document.getElementById('studentName').value,
             nationalId: document.getElementById('nationalId').value,
@@ -155,43 +146,28 @@
             timeSlot: document.getElementById('timeSlot').value
         };
 
-        fetch(WEB_APP_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(res => {
+        fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify(payload) })
+        .then(r => r.json()).then(res => {
             if(res.status === 'success') {
-                // ملء بيانات التذكرة
                 document.getElementById('t-num').innerText = res.ticketNumber;
                 document.getElementById('t-date').innerText = payload.bookingDate;
                 document.getElementById('t-slot').innerText = payload.timeSlot;
                 document.getElementById('t-name').innerText = payload.studentName;
                 document.getElementById('t-id').innerText = payload.nationalId;
-                document.getElementById('t-info').innerText = payload.schoolName + " (" + payload.eduClass + ")";
                 document.getElementById('t-proc').innerText = payload.procedureType;
-                document.getElementById('t-dis').innerText = payload.disabilityType + " - " + payload.iqScore;
-                document.getElementById('t-phone').innerText = payload.phoneNumber;
-
-                // إخفاء الفورم وإظهار التذكرة
+                document.getElementById('t-school').innerText = payload.schoolName;
+                
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('ticket-wrapper').style.display = 'block';
-                
-                window.scrollTo(0, 0);
             } else {
-                alert("فشل الحجز: " + res.message);
-                btn.disabled = false;
-                btn.innerText = "تأكيد الحجز وإصدار التذكرة";
+                alert(res.message);
+                btn.disabled = false; btn.innerText = "تأكيد الحجز";
             }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("حدث خطأ في الاتصال، تأكد من نشر الكود بشكل صحيح.");
-            btn.disabled = false;
-            btn.innerText = "تأكيد الحجز وإصدار التذكرة";
+        }).catch(err => {
+            alert("خطأ في الاتصال بالسيرفر. تأكد من نشر الرابط بشكل صحيح.");
+            btn.disabled = false; btn.innerText = "تأكيد الحجز";
         });
     });
 </script>
-
 </body>
 </html>
