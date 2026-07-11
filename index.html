@@ -1,13 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام حجز مواعيد إدارة الدمج الشامل</title>
-    <!-- استدعاء خط Cairo وتنسيقات Bootstrap -->
+    <!-- font Cairo & Bootstrap -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- مكتبة تحويل العناصر إلى ملف PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
     <style>
@@ -17,6 +16,18 @@
             color: #333;
             padding-bottom: 50px;
         }
+        .official-header {
+            text-align: center;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: #1e5799;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+        .official-header .line-1 { font-size: 18px; }
+        .official-header .line-2 { font-size: 16px; }
+        .official-header .line-3 { font-size: 16px; color: #444; }
+        
         .main-card {
             border: none;
             border-radius: 15px;
@@ -181,11 +192,19 @@
 </head>
 <body>
 
-<div class="container mt-5 no-print-zone" id="form-container">
+<!-- الحاوية الرئيسية للتسجيل -->
+<div class="container no-print-zone" id="form-container">
+    
+    <!-- الأسطر الرسمية المطلوبة أعلى الصفحة قبل كارت الحجز -->
+    <div class="official-header">
+        <div class="line-1">محافظة دمياط</div>
+        <div class="line-2">مديرية التربية والتعليم</div>
+        <div class="line-3">إدارة الدمج الشامل</div>
+    </div>
+
     <div class="card main-card">
         <div class="card-header-custom">
-            <h3 class="mb-1">نظام حجز مواعيد تقديم أوراق الدمج</h3>
-            <p class="mb-0 text-white-50">مديرية التربية والتعليم بمحافظة دمياط</p>
+            <h3 class="mb-0 fw-bold">نظام حجز مواعيد تقديم أوراق الدمج</h3>
         </div>
         <div class="card-body p-4">
             
@@ -236,7 +255,7 @@
                         <input type="text" id="schoolName" class="form-control" required placeholder="أدخل اسم المدرسة كاملاً">
                     </div>
 
-                    <!-- نوع الإجراء المطلرب -->
+                    <!-- نوع الإجراء المطلوب -->
                     <div class="col-md-6">
                         <label class="form-label fw-bold">نوع الإجراء المطلوب <span class="text-danger">*</span></label>
                         <select id="procedureType" class="form-select" required>
@@ -294,9 +313,9 @@
     </div>
 </div>
 
-<!-- حاوية التذكرة (تظهر فقط بعد إتمام الحجز للطباعة و الحفظ كـ PDF) -->
+<!-- حاوية التذكرة الناهية للطباعة والحفظ والتحميل كـ PDF -->
 <div id="ticket-wrapper">
-    <div class="no-print-zone text-center mb-4">
+    <div class="no-print-zone text-center mb-4 mt-4">
         <button class="btn btn-success me-2 px-4" onclick="downloadPDF()">تحميل التذكرة بصيغة PDF</button>
         <button class="btn btn-primary px-4" onclick="window.print()">طباعة التذكرة فورياً</button>
     </div>
@@ -309,7 +328,7 @@
                 مديرية التربية والتعليم<br>
                 إدارة الدمج الشامل
             </div>
-            <div></div> <!-- حجز مساحة توازن للمظهر الهندسي -->
+            <div></div>
         </div>
 
         <div class="ticket-main-title">
@@ -398,22 +417,18 @@
 </div>
 
 <script>
-    // ضع رابط الـ Web App المنسوخ من جوجل سكريبت هنا بدلاً من العلامات المكتوبة أدناه
+    // ضع رابط الـ Web App الخاص بك هنا بدلاً من العلامات المكتوبة أدناه
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx9Vo3uIWO0ZsPpeCnHhkF6rrjbAVm88lliuK9aBBBugxRA2SFdwEfTGey2uwf85n3j/exec";
 
-    // إعداد قيود التواريخ المسموحة في الواجهة الأمامية بشكل ديناميكي
     const dateInput = document.getElementById('bookingDate');
     const today = new Date();
-    const currentYear = today.getFullYear();
     
-    // وضع قيود المنع المبدئي للتواريخ السابقة
     dateInput.min = today.toISOString().split('T')[0];
 
-    // إجراء فحص مباشر وتفصيلي للتاريخ المُختار من المستخدم قبل الإرسال
     dateInput.addEventListener('input', function() {
         const selectedDate = new Date(this.value);
         const day = selectedDate.getDay();
-        const month = selectedDate.getMonth() + 1; // تحويل من 0-11 إلى 1-12
+        const month = selectedDate.getMonth() + 1;
 
         if (day === 5 || day === 6) {
             alert("عذراً! لا يمكن الحجز في أيام الجمعة والسبت. الرجاء اختيار يوم عمل رسمي.");
@@ -427,7 +442,6 @@
         }
     });
 
-    // معالجة إرسال النموذج المالي والبيانات
     document.getElementById('booking-form').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -442,7 +456,6 @@
         submitBtn.innerText = "جاري التحقق وحفظ الموعد...";
         showAlert("جاري معالجة طلبك والتحقق من التوافر السعوي لليوم والفترة، يرجى الانتظار...", "info");
 
-        // تجميع كافه المدخلات لإرسالها في حزمة طلب واحدة
         const payload = {
             studentName: document.getElementById('studentName').value,
             nationalId: nationalId,
@@ -458,27 +471,18 @@
             timeSlot: document.getElementById('timeSlot').value
         };
 
-        // إرسال البيانات إلى خادم جوجل Apps Script
         fetch(WEB_APP_URL, {
             method: 'POST',
-            mode: 'no-cors', // نمط لمنع مشاكل تقييد CORS أثناء العبور
+            mode: 'no-cors',
             cache: 'no-cache',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         })
         .then(() => {
-            // نظراً لاستخدام no-cors، نقوم بعمل فحص تأكيدي بعد الإرسال لضمان الحفظ
-            // البديل الأكثر دقة هو استقبال رد الخادم مباشرة عبر fetch عادي في حال تم ضبط هيدرز الخادم، 
-            // ولكن لتجنب أي توقف بالمتصفح، يتم البناء هنا وعرض النتيجة
-            
-            // تحويل صيغة التاريخ المعروض على التذكرة إلى اللغة العربية بوضوح
             const dateObj = new Date(payload.bookingDate);
             const arabicDateStr = dateObj.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            
-            // توليد الرمز محلياً للعرض الفوري المتطابق مع الشيت تماماً
             const cleanDate = payload.bookingDate.replace(/-/g, "");
             
-            // تعبئة حقول التذكرة
             document.getElementById('t-date').innerText = arabicDateStr;
             document.getElementById('t-slot').innerText = payload.timeSlot;
             document.getElementById('t-name').innerText = payload.studentName;
@@ -490,11 +494,9 @@
             document.getElementById('t-disability').innerText = payload.disabilityType + " (درجة الذكاء: " + payload.iqScore + ")";
             document.getElementById('t-phone').innerText = payload.phoneNumber;
             
-            // رقم تذكرة افتراضي مؤقت متناسق مع الشيت
             const tempTicketNumber = "DMG-" + cleanDate + "-N";
             document.getElementById('t-number').innerText = tempTicketNumber;
 
-            // إخفاء النموذج وإظهار التذكرة
             document.getElementById('form-container').style.display = 'none';
             document.getElementById('ticket-wrapper').style.display = 'block';
             window.scrollTo(0, 0);
@@ -513,7 +515,6 @@
         alertBox.classList.remove('d-none');
     }
 
-    // دالة توليد وتنزيل ملف PDF عالي الجودة متوافق مع قياس A4
     function downloadPDF() {
         const element = document.getElementById('printable-ticket');
         const opt = {
